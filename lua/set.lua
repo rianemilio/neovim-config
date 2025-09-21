@@ -20,4 +20,4 @@ vim.opt.incsearch = true
 
 vim.opt.scrolloff = 8
 
-vim.o.winheight = 15
+vim.o.winheight = 5 
