@@ -6,24 +6,16 @@ return {
     end,
   },
   {
+    "neovim/nvim-lspconfig", 
+    dependencies = {
+      "mason-org/mason-lspconfig.nvim",
+    },
+  },
+  {
     "mason-org/mason-lspconfig.nvim",
     dependencies = {
       "williamboman/mason.nvim",
       "neovim/nvim-lspconfig",
-    },
-    config = function()
-      require("mason-lspconfig").setup({
-        ensure_installed = {
-          "clangd",
-        },
-      })
-    end,
-  },
-
-  {
-    "neovim/nvim-lspconfig",
-    dependencies = {
-      "mason-org/mason-lspconfig.nvim",
     },
     config = function()
       local on_attach = function(client, bufnr)
@@ -49,16 +41,20 @@ return {
       end
 
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
-      local lspconfig = require("lspconfig")
-
-      local servers = require("mason-lspconfig").get_installed_servers()
-      for _, server_name in ipairs(servers) do
-        lspconfig[server_name].setup({
-          on_attach = on_attach,
-          capabilities = capabilities,
-        })
-      end
+      
+      require("mason-lspconfig").setup({
+        ensure_installed = {
+          "clangd",
+        },
+        handlers = {
+          function(server_name)
+            require("lspconfig")[server_name].setup({
+              on_attach = on_attach,
+              capabilities = capabilities,
+            })
+          end,
+        },
+      })
     end,
   },
 }
