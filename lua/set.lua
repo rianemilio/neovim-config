@@ -1,8 +1,8 @@
 vim.wo.number = true
 vim.wo.relativenumber = true
 
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
@@ -20,4 +20,4 @@ vim.opt.incsearch = true
 
 vim.opt.scrolloff = 8
 
-vim.o.winheight = 5 
+vim.o.winheight = 5
