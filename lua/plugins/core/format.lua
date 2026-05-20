@@ -4,22 +4,29 @@ return {
 	cmd = { "ConformInfo" },
 	keys = {
 		{
-			"<leader>f",
+			"<leader>F",
 			function()
-				require("conform").format({ async = true, lsp_format = "fallback" })
+				require("conform").format({
+					async = true,
+					lsp_format = "fallback",
+				})
 			end,
-			mode = "",
+			mode = { "n", "v" },
 			desc = "Format buffer",
 		},
 	},
 	opts = {
 		formatters_by_ft = {
-			lua = { "stylua" },
+			javascript = { "prettierd" },
+			typescript = { "prettierd" },
+			javascriptreact = { "prettierd" },
+			typescriptreact = { "prettierd" },
 		},
-
-		format_on_save = {
-			timeout_ms = 500,
-			lsp_format = "fallback",
-		},
+		format_on_save = function(bufnr)
+			return {
+				timeout_ms = 500,
+				lsp_format = "fallback",
+			}
+		end,
 	},
 }
