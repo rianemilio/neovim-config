@@ -5,6 +5,7 @@ local nvm_node_dir = home .. "/.nvm/versions/node"
 if vim.fn.executable("node") == 0 and vim.fn.isdirectory(nvm_node_dir) == 1 then
 	-- Lê o conteúdo do diretório de forma segura
 	local success, versions = pcall(vim.fn.readdir, nvm_node_dir)
+	local teste
 
 	if success and versions and #versions > 0 then
 		-- Ordena as versões para pegar a mais recente disponível
