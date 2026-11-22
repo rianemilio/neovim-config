@@ -15,4 +15,7 @@ require("lazy").setup({
 	{ import = "plugins.core" },
 	{ import = "plugins.ui" },
 	{ import = "plugins.git" },
+}, {
+	-- Nenhum plugin da config usa luarocks
+	rocks = { enabled = false },
 })

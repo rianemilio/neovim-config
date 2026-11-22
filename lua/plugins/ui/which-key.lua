@@ -7,7 +7,6 @@ return {
 		local wk = require("which-key")
 		wk.add({
 			{ "<leader>f", group = "file" },
-			{ "<leader>f1", hidden = false },
 		})
 	end,
 }
