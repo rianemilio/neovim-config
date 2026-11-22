@@ -1,8 +1,6 @@
 return {
-	"norcalli/nvim-colorizer.lua",
+	-- Fork mantido do norcalli/nvim-colorizer.lua (que usava APIs deprecated)
+	"catgoose/nvim-colorizer.lua",
 	event = { "BufReadPost", "BufNewFile" },
-
-	config = function()
-		require("colorizer").setup()
-	end,
+	opts = {},
 }
