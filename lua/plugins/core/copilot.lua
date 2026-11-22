@@ -5,6 +5,7 @@ return {
 		event = "InsertEnter",
 		config = function()
 			require("copilot").setup({
+				-- Painel e ghost text desligados: o Copilot aparece no menu do blink.cmp
 				panel = {
 					enabled = false,
 					keymap = {
@@ -24,14 +25,6 @@ return {
 					["*"] = true,
 				},
 			})
-		end,
-	},
-
-	{
-		"zbirenbaum/copilot-cmp",
-		dependencies = "zbirenbaum/copilot.lua",
-		config = function()
-			require("copilot_cmp").setup()
 		end,
 	},
 }

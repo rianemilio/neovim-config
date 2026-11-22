@@ -48,9 +48,9 @@ return {
 				end,
 			})
 
-			-- Capabilities do nvim-cmp para todos os servidores
+			-- Capabilities do blink.cmp para todos os servidores
 			vim.lsp.config("*", {
-				capabilities = require("cmp_nvim_lsp").default_capabilities(),
+				capabilities = require("blink.cmp").get_lsp_capabilities(),
 			})
 
 			-- mason-lspconfig v2 chama vim.lsp.enable() nos servidores instalados

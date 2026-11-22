@@ -1,43 +1,48 @@
 return {
-	"hrsh7th/nvim-cmp",
+	"saghen/blink.cmp",
+	-- Versões estáveis (1.x) baixam o binário pronto do fuzzy matcher em Rust
+	version = "1.*",
 	event = "InsertEnter",
 	dependencies = {
-		"hrsh7th/cmp-nvim-lsp",
-		"hrsh7th/cmp-buffer",
-		"hrsh7th/cmp-path",
-		"L3MON4D3/LuaSnip",
-		"saadparwaiz1/cmp_luasnip",
 		"rafamadriz/friendly-snippets",
+		"fang2hou/blink-copilot",
 	},
-	config = function()
-		local cmp = require("cmp")
-		local luasnip = require("luasnip")
+	---@module "blink.cmp"
+	---@type blink.cmp.Config
+	opts = {
+		-- Mesmos atalhos que você usava no nvim-cmp
+		keymap = {
+			preset = "none",
+			["<C-k>"] = { "select_prev", "fallback" },
+			["<C-j>"] = { "select_next", "fallback" },
+			["<C-b>"] = { "scroll_documentation_up", "fallback" },
+			["<C-f>"] = { "scroll_documentation_down", "fallback" },
+			["<CR>"] = { "accept", "fallback" },
+			["<C-Space>"] = { "show", "show_documentation", "hide_documentation" },
+			["<C-e>"] = { "hide", "fallback" },
+			["<Tab>"] = { "snippet_forward", "fallback" },
+			["<S-Tab>"] = { "snippet_backward", "fallback" },
+		},
 
-		require("luasnip.loaders.from_vscode").lazy_load()
+		completion = {
+			documentation = { auto_show = true, auto_show_delay_ms = 300 },
+		},
 
-		cmp.setup({
-			snippet = {
-				expand = function(args)
-					luasnip.lsp_expand(args.body)
-				end,
+		signature = { enabled = true },
+
+		sources = {
+			default = { "copilot", "lsp", "snippets", "buffer", "path" },
+			providers = {
+				copilot = {
+					name = "copilot",
+					module = "blink-copilot",
+					score_offset = 100,
+					async = true,
+				},
 			},
+		},
 
-			mapping = cmp.mapping.preset.insert({
-				["<C-k>"] = cmp.mapping.select_prev_item(),
-				["<C-j>"] = cmp.mapping.select_next_item(),
-				["<C-b>"] = cmp.mapping.scroll_docs(-4),
-				["<C-f>"] = cmp.mapping.scroll_docs(4),
-				["<CR>"] = cmp.mapping.confirm({ select = true }),
-				["<C-Space>"] = cmp.mapping.complete(),
-			}),
-
-			sources = cmp.config.sources({
-				{ name = "copilot" },
-				{ name = "nvim_lsp" },
-				{ name = "luasnip" },
-				{ name = "buffer" },
-				{ name = "path" },
-			}),
-		})
-	end,
+		fuzzy = { implementation = "prefer_rust_with_warning" },
+	},
+	opts_extend = { "sources.default" },
 }
